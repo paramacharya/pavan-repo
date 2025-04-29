@@ -1,14 +1,18 @@
-name: test-python
-on: push
+name: Declare and Print Variable
+
+on: [push]
+
 jobs:
-    test-python:
-        runs-on: windows-latest
-        steps:
-            - name: set conda env name
-              run: |
-                echo ENV_NAME=5 >> %GITHUB_ENV
-              shell: pwsh
-            - name: print env
-              run: |
-                Write-Host "value of env name is: $env:ENV_NAME"
-              shell: pwsh
+  print-var-job:
+    runs-on: windows-latest
+
+    steps:
+      - name: Declare variable
+        run: |
+          echo "MY_VAR=Hello from GitHub Actions" >> $env:GITHUB_ENV
+        shell: pwsh
+
+      - name: Print variable
+        run: |
+          Write-Host "The value of MY_VAR is: $env:MY_VAR"
+        shell: pwsh
