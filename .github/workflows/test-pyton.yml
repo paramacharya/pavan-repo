@@ -6,7 +6,7 @@ jobs:
         steps:
             - name: set conda env name
               run: |
-                echo ENV_NAME="C:\codebase\vinoj\actions-runner\_work\uq\uq\_venv3" >> %GITHUB_ENV
+                echo ENV_NAME=5 >> %GITHUB_ENV
               shell: pwsh
             - name: print env
               run: |
