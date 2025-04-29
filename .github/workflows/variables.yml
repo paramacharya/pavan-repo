@@ -1,0 +1,45 @@
+name: Windows Batch Variable Workflow
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  stage1:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: cmd
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Run .bat file and save variable
+        run: set-variable.bat
+
+      - name: Upload variable file
+        uses: actions/upload-artifact@v3
+        with:
+          name: var-file
+          path: variable.txt
+
+  stage2:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: cmd
+
+    needs: stage1
+
+    steps:
+      - name: Download variable file
+        uses: actions/download-artifact@v3
+        with:
+          name: var-file
+
+      - name: Read and print variable
+        run: |
+          for /f "tokens=1,2 delims==" %%a in (variable.txt) do set %%a=%%b
+          echo %MY_VAR%
