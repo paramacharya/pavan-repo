@@ -1,0 +1,14 @@
+name: test-python
+on: push
+jobs:
+    test-python:
+        runs-on: windows-latest
+        steps:
+            - name: set conda env name
+              run: |
+                echo ENV_NAME="C:\codebase\vinoj\actions-runner\_work\uq\uq\_venv3" >> %GITHUB_ENV
+              shell: pwsh
+            - name: print env
+              run: |
+                Write-Host "value of env name is: $env:ENV_NAME"
+              shell: pwsh
